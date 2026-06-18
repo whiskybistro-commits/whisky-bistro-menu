@@ -357,6 +357,51 @@
       flex-shrink: 0;
     }
 
+    /* กล่องข้อมูลโทรติดต่อสั่งอาหารล่วงหน้า */
+    .contact-card-container {
+      background: #fdfaf7;
+      border: 1px dashed #dcd4cb;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      box-sizing: border-box;
+    }
+    .contact-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #7a7065;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-call-stall {
+      background-color: #fbe6e5;
+      color: #8a574e;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      width: 100%;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+    }
+    .btn-call-stall:hover {
+      background-color: #f7d4cf;
+      color: #7a463d;
+    }
+
     /* ปุ่มกลับหน้าหลัก */
     .btn-back-home {
       background-color: #f2ede6;
@@ -522,6 +567,11 @@
         <!-- ข้อมูลถูกส่งมาผ่าน JS -->
       </div>
 
+      <!-- กล่องข้อมูลการติดต่อโทรสั่งอาหารล่วงหน้าของแต่ละซุ้ม -->
+      <div class="contact-card-container" id="contact-card-detail">
+        <!-- ข้อมูลถูกสร้างมาผ่าน JS ตามหมายเลขซุ้มที่ระบุ -->
+      </div>
+
       <button class="btn-back-home" onclick="goHome()">
         <span class="material-symbols-outlined">home</span>
         <span class="btn-back-text">กลับหน้าหลัก</span>
@@ -538,7 +588,7 @@
   </div>
 
   <script>
-    // รูปภาพหน้าสไลด์เมนู (ใช้ชุดเดียวกับโค้ดสั่งอาหารของคุณ)
+    // รูปภาพหน้าสไลด์เมนู (ใช้ชุดเดียวกับโค้ดเดิมของคุณ)
     const stallMenuImages = {
       1: [
         "https://drive.google.com/thumbnail?id=1n94y6gT-U_2R_zmmBah2zhNFQbVLZSMQ&sz=w1200",
@@ -575,7 +625,7 @@
       ]
     };
 
-    // รายชื่อเมนูแนะนำอิงจากข้อมูลที่คุณให้มาครบถ้วนทั้ง 3 ภาษา
+    // รายชื่อเมนูแนะนำอิงจากข้อมูลล่าสุด
     const stallSuggestions = {
       th: {
         1: ["เค้กแซลม่อน", "เซทรวมซาชิมิ", "เนื้อทอด 10 วิ", "กุ้งดองซีอิ๊วญี่ปุ่น", "หอยนางรมญี่ปุ่น", "ซาบะย่างเทริยากิ", "กุ้งเทมปุระ", "ข้างด้ง 4 สหาย", "เกี๊ยวซ่า", "ทาโกะวาซาบิ"],
@@ -596,11 +646,21 @@
       ja: {
         1: ["サーモンケーキ", "刺身盛り合わせ", "10秒牛ハラミ揚げ", "えびの日本醤油漬け", "日本産生牡蠣", "サバの照り焼き", "エビの天ぷら", "四銃士丼", "餃子", "たこわさび"],
         2: ["豚バラえのき巻き麻辣串焼き", "魚のハーブ包み炭火焼き（ミアン・プラーパオ）", "エビの串焼き", "ジェオホーン（タイ風豚肉ハーブ鍋）セット", "豚肉のスパイシーライム和え（ムーマナオ）", "生エビのナンプラーソース漬け", "鶏軟骨揚げ", "豚骨ピリ辛スープ（トムレン）", "鶏軟骨のトムサープスープ", "タニシのハーブ蒸し焼き"],
-        3: ["フレンチフライのチーズソースがけ", "フレンチフライ의 パプリカパウダー振り", "フライドチキンのライムクリームソースがけ", "タイ風干し豚肉（ムーデーッディアウ）", "タイ風エビカツ（トードマングン）", "チキンナゲット", "スパイシーチキンポップ", "チーズボール", "ポテトウェッジ", "豚バラ肉のナンプラー揚げ"],
+        3: ["フレンチフライのチーズソースがけ", "フレンチフライของ パプリカパウダー振り", "フライドチキンのライムクリームソースがけ", "タイ風干し豚肉（ムーデーッディアウ）", "タイ風エビカツ（トードマングン）", "チキンナゲット", "スパイシーチキンポップ", "チーズボール", "ポテトウェッジ", "豚バラ肉のナンプラー揚げ"],
         4: ["サーモンのスパイシーサラダ（ヤム・サーモン）", "ワタリガニのスパイシーサラダ（ヤム・ปูม้า）", "生エビのスパイシーサラダ（ヤム・クンソット）", "イカのスパイシーサラダ（ヤム・プラーหมึก）", "フライドポークのスパイシーサラダ", "目玉焼きのスパイシーサラダ", "カノムジーン（米粉麺）のソムタム", "プラーラー（魚発酵ソース）ソムタム", "タイ風オムレツのせご飯", "豚肉のガパオ炒めご飯"],
-        5: ["しゃぶしゃぶセット M", "しゃぶしゃぶセット L", "豚ホルモン焼き", "ミックスグリル（焼き物盛り合わせ）", "ネーム（豚酸っぱソーセージ）の卵とじ蒸し焼き", "揚げ麻辣（マーラー）", "トムサープ鍋（ピリ辛ハーブスープ）", "豚肩ロースのにんにく揚げ", "空心菜炒め（パックブン・ファイデーン）", "水牛の肉焼き"],
+        5: ["しゃぶしゃぶセット M", "しゃぶしゃぶセット L", "豚ホルモン焼き", "ミックスグリル（焼き物盛り合わせ）", "ネーム（豚酸っぱソーセージ）の卵とじ蒸し焼き", "揚げ麻辣（マーラー）", "トムサープ鍋（ピリ辛ハーブスープ）", "豚肩ロースのにんにく揚げ", "空心菜炒め（パックブン・ファイデーン）", "水牛ของ肉焼き"],
         6: ["北部風炒めラープムー（豚ひき肉ハーブ和え）", "北部風生ラープクワイ（生のラープ水牛肉）", "ソイジュ（生水牛肉のスパイシー苦味ソース添え）", "豚肩ロース焼き（コームーヤーン）", "豚の大腸焼き", "豚のおっぱい（ペーンノム）焼き", "ナムトックムー（豚スパイシー焼き肉和え）", "タップワーン (レバーのスパイシー和え)", "牛軟骨のトムサープスープ", "もち米"]
       }
+    };
+
+    // หมายเลขโทรศัพท์ติดต่อของแต่ละซุ้ม
+    const stallPhones = {
+      1: { raw: "0956609160", display: "095-660-9160" },
+      2: { raw: "0629429655", display: "062-942-9655" },
+      3: { raw: "0966840414", display: "096-684-0414" },
+      4: { raw: "0647187556", display: "064-718-7556" },
+      5: { raw: "0960826163", display: "096-082-6163" },
+      6: { raw: "0926835465", display: "092-683-5465" }
     };
 
     const stallTitles = {
@@ -644,19 +704,22 @@
         title: "เมนูอาหาร<br>Whisky Bistro Menu",
         home_hint: "แตะที่ซุ้มอาหารด้านล่างเพื่อเลือกดูเมนูแนะนำ",
         btn_back: "กลับหน้าหลัก",
-        recommend_header: "รายการแนะนำประจำซุ้ม"
+        recommend_header: "รายการแนะนำประจำซุ้ม",
+        call_to_order: "โทรสั่งอาหารล่วงหน้า"
       },
       en: {
         title: "Food Menu<br>Whisky Bistro",
         home_hint: "Tap on a food stall below to view the menu",
         btn_back: "Back to Main",
-        recommend_header: "Kiosk Recommendations"
+        recommend_header: "Kiosk Recommendations",
+        call_to_order: "Call to Pre-order"
       },
       ja: {
         title: "フードメニュー<br>Whisky Bistro",
         home_hint: "下のフードキオスクをタップしてメニューを表示します",
         btn_back: "ホームへ戻る",
-        recommend_header: "おすすめメニュー"
+        recommend_header: "おすすめメニュー",
+        call_to_order: "お電話での事前注文"
       }
     };
 
@@ -698,6 +761,9 @@
 
       // แสดงลิสต์เมนูแนะนำ 10 รายการ
       renderRecommendations(stallId);
+
+      // แสดงปุ่มและข้อมูลโทรติดต่อสั่งซื้อล่วงหน้า
+      renderPhoneContact(stallId);
     }
 
     // จัดทำลิสต์รายการแนะนำ
@@ -726,6 +792,32 @@
       });
 
       container.innerHTML = htmlContent;
+    }
+
+    // จัดวางโครงสร้างข้อมูลเบอร์โทรศัพท์ของแต่ละซุ้มแบบไดนามิก
+    function renderPhoneContact(stallId) {
+      const container = document.getElementById('contact-card-detail');
+      if (!container) return;
+
+      const phoneInfo = stallPhones[stallId];
+      if (!phoneInfo) {
+        container.style.display = 'none';
+        return;
+      }
+      container.style.display = 'flex';
+
+      const dict = translations[currentLang] || translations['th'];
+
+      container.innerHTML = `
+        <div class="contact-card-title">
+          <span class="material-symbols-outlined" style="color: #ba7c72; font-size: 18px;">phone_in_talk</span>
+          <span>${dict.call_to_order}</span>
+        </div>
+        <a href="tel:${phoneInfo.raw}" class="btn-call-stall">
+          <span class="material-symbols-outlined" style="font-size: 20px;">call</span>
+          <span>${phoneInfo.display}</span>
+        </a>
+      `;
     }
 
     // ทำงานส่วนภาพสไลด์ในหน้าย่อย
@@ -863,6 +955,7 @@
           const textStall = document.getElementById('text-stall-detail');
           if (textStall) textStall.innerText = titlesDict[currentSelectedStall];
           renderRecommendations(currentSelectedStall);
+          renderPhoneContact(currentSelectedStall);
         }
 
         renderStallGrid();
